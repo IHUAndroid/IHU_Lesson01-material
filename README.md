@@ -13,8 +13,23 @@ How to do it: https://www.youtube.com/watch?v=NtrrtkSentA
 ### Instructions
 - We start from mockup design first. Who do we want the graphics of the forecast?
 
-- ```MainActivity``` is the basic class from where everything starts. Inside there is the inner class  ```PlaceholderFragment```. 
+- ```MainActivity``` is the basic class from where everything starts. Inside there we will create the inner class  ```PlaceholderFragment```. 
 Fragment is a modular container that can be reused in many other activities.
+
+We shoud also change ```MainActivity.onCreate()``` to be as follows:
+
+````
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new PlaceholderFragment())
+                    .commit();
+        }
+    }
+````
 
 - The forecast list will be implemented as a ```ListView```. Every ```ListView``` fills with many ```ListItems```. For this reason we should define how the ```ListItem``` will be depicted
 
