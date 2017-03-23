@@ -98,31 +98,33 @@ String[] data = {
                     "Sun 6/29 - Sunny - 20/7"         };
 ```
 
-- Επεξήγηση ροής δεδομένων στο ListView. (Σχετικό βίντεο: https://www.youtube.com/watch?v=uOOupBYZeO0)
+- ListView data flow. (Relative video: https://www.youtube.com/watch?v=uOOupBYZeO0)
 
 ![ListView](https://github.com/UomMobileDevelopment/Lesson02-material/blob/master/listViewDataHandlingModel.PNG)
 
-- Γράφουμε κώδικα στη μέθοδο ```onCreateView(...)``` για να φτιάξουμε τον ```Adapter```. Στην περίπτωσή μας χρειαζόμαστε έναν ```ArrayAdapter```. Ο κατασκευαστής του παίρνει 4 παραμέτρους.
-  1. Το context. Περιλαμβάνει όλες τις πληροφορίες για το περιβάλλον εκτέλεσης και δίνει πρόσβαση σε υπηρεσίες και αρχεία του συστήματος  (```getActivity()```)
-  2. ID του list item layout. Θα το πάρουμε μέσω του καθολικού και ειδικού αρχείου R.java. Αυτό το αρχείο παρέχει ανθρώπινες ονομασίες (αντί για διευθύνσεις μνήμης) για όλα τα resources μας. Υπάρχει πάντα σε κάθε android project (```R.layout.list_item_forecast```)
-  3. ID του text view (```R.id.list_item_forecast_textview```)
-  4. Τη λίστα με τα δεδομένα (όπως ονομάσαμε το ArrayList)
+- Implement method ```onCreateView(...)``` to create the ```Adapter```. In our case, we need an ```ArrayAdapter```. The contructor takes 4 parameters.
+  1. Context. Includes all info regarding the running environment and gives access to system files and core services (```getActivity()```)
+  2. ID of the list item layout. We will gain access to this through the globally accessble file ```R.java```. This file contains human-readable names (instead of memory addresses) for all of our resources. It exists **always** in any android project (```R.layout.list_item_forecast```)
+  3. ID of the text view (```R.id.list_item_forecast_textview```)
+  4. Data list (the list with the dummy data for now)
   
-Ας δώσουμε λίγη προσοχή στις ονομασίες απο το αρχείο R.java. Η μία ξεκινά με ```R.layout``` ενώ η άλλη με ```R.id```
-αυτό υποδυκνύει πως η πρώτη μεταβλητή αναφέρεται σε αρχείο διάταξης xml ενώ η δεύτερη αναφέρεται σε συγκεκριμένο συστατικό xml.
+Let's pay attention to the names inside ```R.java```. There is a name ```R.layout``` and a name  ```R.id```.
+This indicates that the first variable (.layout) refers to an xml layout resource, while the second refers to a specific xml component.
 
-- Κώδικας για να συνδέσουμε με τον ```Adapter``` με το ```ListView```. Αρχικά να 'πάρουμε' στα χέρια μας μία αναφορά προς το ListView χρησιμοποιώντας το ID που της έχουμε δώσει (```@+id/listview_forecast```). Υπενθύμιση η πρόσβαση στα ID μέσα απο τον κώδικα γίνεται με τη χρήση του ```R.java```. 
-Λίγα λόγια για το πώς βρίσκουμε τα Views Με τη μέθodo ```findViewById()```
+### Cconnecting the ```Adapter``` with the ```ListView```
+
+- To begin with, we should gain access to a reference to the ```ListView``` by using the given ID  (```@+id/listview_forecast```). (through ```R.java```). 
+*Some info about finding views by using their IDs ```findViewById()```*
 
 ![Finding Views](https://github.com/UomMobileDevelopment/Lesson02-material/blob/master/findingViews.PNG)
 
-Έτσι, ο κώδικας που πρέπει να γράψουμε είναι:
+The code that we should write is:
 ```
             ListView forecastListView = (ListView)rootView.findViewById(R.id.listview_forecast);
             forecastListView.setAdapter(forecastListAdapter);
 ```
 
-και έτσι έχουμε συνολικά:
+and the whole picture:
 
 ```
 public static class PlaceholderFragment extends Fragment {
