@@ -1,24 +1,28 @@
-# Περιγραφή του 2ου μαθήματος
+# International Hellenic University  -  1st lesson overview
 
-### Εισαγωγικά
-Για να μπορέσετε να εκτελείτε τον κώδικα στο κινητό σας θα πρέπει να έχετε ενεργοποιήσει στο κινητό το USB Debugging
-ΠΩΣ ΕΝΕΡΓΟΠΟΙΟΥΜΕ ΤΟ USB Debugging: https://www.youtube.com/watch?v=NtrrtkSentA
+### Introduction
+In order to run your application directly on your mobile phone, you must enable USB Debugging.
+How to do it: https://www.youtube.com/watch?v=NtrrtkSentA
 
 
-Στο 2ο μάθημα θα κατασκευάσουμε απο την αρχή μια εφαρμογή ανάγνωσης καιρικών συνθηκών σε λίστα.
+### We will create from scratch an application for presenting weather forecasts in a list
 
 ![alt tag](https://github.com/UomMobileDevelopment/Lesson02-material/blob/master/Shunshine-dummy-screen-smaller.png)
 
 
-### Οδηγίες
-- Ξεκινάμε σχεδιάζοντας το mockup σχέδιο της οθόνης μας. Πώς θέλουμε να εμφανίζονται οι καιρικές συνθήκες;
+### Instructions
+- We start from mockup design first. Who do we want the graphics of the forecast?
 
-- ```MainActivity``` Η βασική κλάση απο την οποία ξεκινάνε όλα. Εκεί μέσα υπάρχει η inner class ```PlaceholderFragment```. Το Fragment είναι ένας αρθρωτός γραφικός υποδοχέας που μπορεί να επαναχρησιμοποιηθεί σε άλλα Activities. (modular container).
+- ```MainActivity``` is the basic class from where everything starts. Inside there is the inner class  ```PlaceholderFragment```. 
+Fragment is a modular container that can be reused in many other activities.
 
-- Η λίστα με τις ημέρες πρόγνωσης θα υλοποιηθεί με τη βοήθεια του ```ListView```. Κάθε ```ListView``` γεμίζει πολλά ```ListItems```. Γιαυτό πρέπει να ορίσουμε το πώς θα φαίνεται το list item.
+- The forecast list will be implemented as a ```ListView```. Every ```ListView``` fills with many ```ListItems```. For this reason we should define how the ```ListItem``` will be depicted
 
-- Προσθέτουμε στον φάκελο res/layout to αρχείο ```list_item_forecast.xml``` (res->layout-> right click-> New -> Layout Resource file ) 
-Το αρχείο περιγράφει ένα TextView (μόνο, τίποτε άλλο) με ID ```@+id/list_item_forecast_textview```. Συνολικά το αρχείο πρέπει να έχει:
+
+- We add in the folder res/layout the file ```list_item_forecast.xml``` (res->layout-> right click-> New -> Layout Resource file ) 
+This file currently describes a TextView  with ID ```@+id/list_item_forecast_textview```. 
+
+The full file contents :
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -30,42 +34,46 @@
     android:id="@+id/list_item_forecast_textview">
 </TextView>
 ```
-Δίνουμε προσοχή στα:
+Pay attention to:
 ```
 android:layout_height="wrap_content"
 android:minHeight="?android:attr/listPreferredItemHeight"
 android:gravity="center_vertical"
 ```
 
-- Εισαγωγή στο Responsive design. Γιατί είναι σημαντικό; (γιατί έχουμε πολλά και διάφορα μεγέθη οθονών και συσκευών).
-Τρόπος σκέψης για να χτίζω responsive layouts. Παραδείγματα (http://rollpark.us/, https://www.wired.com/ http://www.theatlantic.com/world/ ). Επεξήγηση bootstrap design col-12 scheme κλπ.
+### Responsive design
+- Introduction to Responsive design. Why it is so important? (ans: various sizes of devices and screens).
+Different way of thinking and creating responsive layouts. Examples (http://rollpark.us/, https://www.wired.com/ http://www.theatlantic.com/world/ ).
 
-- Layout Managers. Κυριότεροι: Frame Layout, Linear Layout, Relative Layout
+- Layout Managers: Frame Layout, Linear Layout, Relative Layout
 
-- Frame: ιδανικό για απλές περιπτώσης όπου στην οθόνη έχουμε μόνο ένα συστατικό, όπως πχ μια λίστα
+- FrameLayout: Ideal for occasions where the screen will host only one component, e.g. a list and nothing more.
 
-- Linear: ιδανικό για στίβαγμα συστατικων το ένα δίπλα στο άλλο ή το ένα κάτω απο το άλλο. Μας βοηθά επίσης να χωρίσουμε την οθόνη σε μέρη.
+- LinearLayout: Ideal for stacking components, one next to other or one above an other. **Also it can help us divide the screen to smaller areas**
 
-- Relative: δυνατό αλλα πολύπλοκο. Εδώ ορίζουμε τη διάταξη του κάθε συστατικού *σε σχέση* με κάποιο άλλο συστατικό
+- RelativeLayout: Powerfull but difficult. Every component's place is defined in relation to some other component. 
 
 
-**Λίστες σε κινητές συσκευές**
+**Lists in mobile devices**
 
-- Χρήση ScrollView. Τι μπορεί να πάει στραβά; Πόσα στοιχεία χωράει η οθόνη; πόσα μπορώ να φορτώσω στη μνήμη; Παράδειγμα με 50 στοιχεία αν η οθόνη χωράει 10 πόσα πρέπει να φορτώσω;
+- ScrollView. What can go wrong? How many items can fit on the screen? How many items fit in memory? For example, if a screen holds 10 items and there are 200, how many should i load?
 
-- Τη λύση δίνει το ListView το οποίο φορτώνει δυναμικά τα στοιχεία και τα δημιουργεί λίγο πριν εμφανιστούν στην οθόνη. 
+- ListView to the rescue. It dynamically loads list items and create each just before it appears on screen. 
 
-- Τί γίνεται με τα στοιχεία που είδαμε και έχουν πάει "επάνω". Συνεχίζουν να δεσμεύουν μνήμη. Επεξήγηση recycler
+- And what about already seen items that are now "above" the screen? They keep eating memory! Recycler view to the rescue
 
-- Εισαγωγή στο MVC και το Adapter Pattern. 
+- MVC = Model View Controller 
+- Adapter Pattern. 
 
-- AdapterView: Προσαρμογέας, παρέχει τα δεδομένα προς το View, χωρίς να τον ενδιαφέρει τι είδους view είναι. Έτσι τα καιρικά δεδομένα μπορούν να παρουσιαστούν είτε σε ```ListView```, είτε σε ```GridView```
+- AdapterView: Adapter loads data to View without caring about the specific type of View. 
 
-- Υλοποίηση του ListView: τροποποιούμε το ```fragment_mail.xml``` έτσι ώστε: 
-  1. Να εμφανίζει ένα ```ListView``` αντί για ```TextView```
-  2. Να έχει ```FrameLayout``` αντί για ```RelativeLayout```
+**We will gona use ListView**
 
-- Το ListView πρέπει να γίνει:
+- Implementing ListView: Modify ```fragment_main.xml``` so that: 
+  1. Displays a  ```ListView``` instead of a ```TextView```
+  2. Uses a ```FrameLayout``` instead of a ```RelativeLayout```
+
+- ListView xml should contain:
 ```
 <ListView
 android:id="@+id/listview_forecast"
@@ -73,9 +81,11 @@ android:layout_width="match_parent"
 android:layout_height="match_parent" />
 
 ```
-- Ήρθε η ώρα να γεμίσουμε το ListView με δεδομένα. Ανοίγουμε το ```MainActivity.java```.
+-Now is the time to fill ListView with data. Open ```MainActivity.java```.
 
-- Στην εσωτερική κλάση ```PlaceholderFragment``` στη μέθοδο ```onCreateView(...)``` εισάγουμε ένα array με dummy δεδομένα. Χρησιμοποιήστε αυτό αν θέλετε:
+- In the inner class ```PlaceholderFragment```, in the method ```onCreateView(...)``` create an array with dummy data. 
+
+You can use this, if you want:
 
 ```
 String[] data = {
