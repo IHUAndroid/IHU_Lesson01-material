@@ -7,7 +7,7 @@ How to do it: https://www.youtube.com/watch?v=NtrrtkSentA
 
 ### We will create from scratch an application for presenting weather forecasts in a list
 
-![alt tag](https://github.com/UomMobileDevelopment/Lesson02-material/blob/master/Shunshine-dummy-screen-smaller.png)
+![alt tag](https://github.com/IHUAndroid/IHU_Lesson01-material/blob/master/Screenshot_1490303945.png)
 
 
 ### Instructions
